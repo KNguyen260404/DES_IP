@@ -104,14 +104,3 @@ DES/
 - Synthesis tools (Synopsys Design Compiler, Cadence Genus, etc.)
 - Layout tools (Cadence Innovus, Synopsys ICC2, etc.)
 
-## Đóng góp
-
-Dự án này được phát triển bởi nhóm nghiên cứu. Mọi đóng góp và phản hồi đều được hoan nghênh.
-
-## Giấy phép
-
-Dự án được phân phối theo giấy phép MIT. Xem file `LICENSE.txt` để biết thêm chi tiết.
-
-## Liên hệ
-
-Để biết thêm thông tin về dự án, vui lòng liên hệ với nhóm phát triển.
