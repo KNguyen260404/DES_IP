@@ -110,3 +110,5 @@ DES/
 - [https://nguyenquanicd.blogspot.com/2017/08/background-thuat-toan-ma-hoa-va-giai-ma.html]
 - [https://nguyenquanicd.blogspot.com/2017/08/ip-core-loi-ip-ma-hoa-giai-ma-des.html]
 - [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-1-huong-dan-phan.html]
+- [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-2-huong-dan-phan.html]
+- [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-3-huong-dan-phan.html]
