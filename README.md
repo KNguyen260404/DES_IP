@@ -44,17 +44,6 @@ print(f"Decrypted: {decrypted}")
 ```
 
 ### 🚧 Đang phát triển: Phần cứng (Hardware Implementation)
-
-Hiện tại đã có các module cơ bản trong thư mục `hw/`:
-- **`DES_core.v`**: Module chính của DES core
-- **`PC1.v`**, **`PC2.v`**: Permuted Choice 1 và 2
-- **`IP.v`**, **`Inverse_IP.v`**: Initial và Final Permutation
-- **`E_Permutation.v`**: Expansion Permutation
-- **`S_Box.v`**: Substitution Box
-- **`P_Permutation.v`**: P-Box Permutation
-- **`DES_Counter.v`**: Bộ đếm round
-- **`DES_*_Controller.v`**: Các bộ điều khiển
-
 ### 📋 Kế hoạch tiếp theo
 
 #### Giai đoạn 1: Hoàn thiện thiết kế RTL
