@@ -104,3 +104,5 @@ DES/
 - Synthesis tools (Synopsys Design Compiler, Cadence Genus, etc.)
 - Layout tools (Cadence Innovus, Synopsys ICC2, etc.)
 
+### Tài Liệu Tham Khảo : 
+https://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm
