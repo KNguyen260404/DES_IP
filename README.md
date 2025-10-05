@@ -107,3 +107,6 @@ DES/
 ### Tài Liệu Tham Khảo : 
 https://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm
 https://en.wikipedia.org/wiki/Data_Encryption_Standard
+https://nguyenquanicd.blogspot.com/2017/08/background-thuat-toan-ma-hoa-va-giai-ma.html
+https://nguyenquanicd.blogspot.com/2017/08/ip-core-loi-ip-ma-hoa-giai-ma-des.html
+https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-1-huong-dan-phan.html
