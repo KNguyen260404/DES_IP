@@ -112,3 +112,5 @@ DES/
 - [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-1-huong-dan-phan.html]
 - [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-2-huong-dan-phan.html]
 - [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-3-huong-dan-phan.html]
+- [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-4-huong-dan-phan.html]
+- [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-5-huong-dan-phan.html]
