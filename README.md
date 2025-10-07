@@ -114,3 +114,4 @@ DES/
 - [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-3-huong-dan-phan.html]
 - [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-4-huong-dan-phan.html]
 - [https://nguyenquanicd.blogspot.com/2017/09/basic-knowledgebai-5-huong-dan-phan.html]
+- https://www.academia.edu/download/52101727/A_Compact_FPGA_Implementation_of_Triple-20170310-22993-8x5uyz.pdf
