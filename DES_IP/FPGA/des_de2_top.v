@@ -38,9 +38,19 @@ reg     [1:0]   key0_sync, key1_sync, key2_sync;
 // KEY[0] - Reset (active low)
 // KEY[1] - Start Encryption
 // KEY[2] - Start Decryption  
-// KEY[3] - Load Data/Key
-// SW[17:16] - Mode select: 00=set data low, 01=set data high, 10=set key low, 11=set key high
-// SW[15:0] - Data/Key input (16 bits at a time)
+// KEY[3] - Load Data/Key from switches
+//
+// Switch definitions:
+// SW[17] - When HIGH: Load KEY preset (use with KEY[3])
+// SW[16:0] - Plaintext/Key selector (when SW[17]=0, selects plaintext; when SW[17]=1, selects key)
+//
+// Quick preset selection:
+// SW[0]=1 → Load Plaintext 1
+// SW[1]=1 → Load Plaintext 2
+// SW[2]=1 → Load Plaintext 3
+// SW[3]=1 → Load Plaintext 4
+// SW[17]=1, SW[0]=1 → Load Key 1
+// SW[17]=1, SW[1]=1 → Load Key 2
 
 assign clk = CLOCK_50;
 assign rst_n = KEY[0];
@@ -71,29 +81,60 @@ always @(posedge clk or negedge rst_n) begin
     end
 end
 
-// Load data and key registers
+// Load data and key registers with preset selection
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        des_data <= 64'h0123456789ABCDEF;  // Default test data
-        des_key  <= 64'h133457799BBCDFF1;  // Default test key
+        des_data <= 64'h0123456789ABCDEF;  // Default: Standard DES test vector
+        des_key  <= 64'h133457799BBCDFF1;  // Default: Standard DES key
     end else if (key2_pressed) begin
-        // Load data or key based on SW[17]
         if (!SW[17]) begin
-            // Load data (SW[17] = 0)
-            case (SW[16:15])
-                2'b00: des_data[15:0]  <= SW[15:0];   // Load data bits [15:0]
-                2'b01: des_data[31:16] <= SW[15:0];   // Load data bits [31:16]
-                2'b10: des_data[47:32] <= SW[15:0];   // Load data bits [47:32]
-                2'b11: des_data[63:48] <= SW[15:0];   // Load data bits [63:48]
-            endcase
+            // Load plaintext presets (SW[17] = 0)
+            if (SW[0]) begin
+                // SW[0]: Standard DES test vector
+                des_data <= 64'h0123456789ABCDEF;
+            end else if (SW[1]) begin
+                // SW[1]: All zeros
+                des_data <= 64'h0000000000000000;
+            end else if (SW[2]) begin
+                // SW[2]: All ones
+                des_data <= 64'hFFFFFFFFFFFFFFFF;
+            end else if (SW[3]) begin
+                // SW[3]: Pattern 1
+                des_data <= 64'hDEADBEEFCAFEBABE;
+            end else if (SW[4]) begin
+                // SW[4]: Pattern 2
+                des_data <= 64'h0011223344556677;
+            end else if (SW[5]) begin
+                // SW[5]: Pattern 3
+                des_data <= 64'h8899AABBCCDDEEFF;
+            end else if (SW[6]) begin
+                // SW[6]: Pattern 4
+                des_data <= 64'hFEDCBA9876543210;
+            end else if (SW[7]) begin
+                // SW[7]: Custom pattern
+                des_data <= 64'h123456789ABCDEF0;
+            end
         end else begin
-            // Load key (SW[17] = 1)
-            case (SW[16:15])
-                2'b00: des_key[15:0]  <= SW[15:0];    // Load key bits [15:0]
-                2'b01: des_key[31:16] <= SW[15:0];    // Load key bits [31:16]
-                2'b10: des_key[47:32] <= SW[15:0];    // Load key bits [47:32]
-                2'b11: des_key[63:48] <= SW[15:0];    // Load key bits [63:48]
-            endcase
+            // Load key presets (SW[17] = 1)
+            if (SW[0]) begin
+                // SW[17]=1, SW[0]: Standard DES key
+                des_key <= 64'h133457799BBCDFF1;
+            end else if (SW[1]) begin
+                // SW[17]=1, SW[1]: All zeros key
+                des_key <= 64'h0000000000000000;
+            end else if (SW[2]) begin
+                // SW[17]=1, SW[2]: All ones key
+                des_key <= 64'hFFFFFFFFFFFFFFFF;
+            end else if (SW[3]) begin
+                // SW[17]=1, SW[3]: Custom key 1
+                des_key <= 64'h0123456789ABCDEF;
+            end else if (SW[4]) begin
+                // SW[17]=1, SW[4]: Custom key 2
+                des_key <= 64'hFEDCBA9876543210;
+            end else if (SW[5]) begin
+                // SW[17]=1, SW[5]: Weak key
+                des_key <= 64'h0101010101010101;
+            end
         end
     end
 end
