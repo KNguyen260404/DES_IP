@@ -100,6 +100,9 @@ always @(posedge clk or negedge rst_n) begin
         // Reset to zero when KEY[0] is pressed
         des_data <= 64'h0;
         des_key  <= 64'h0;
+    end else if (key1_pressed && des_ready) begin
+        // Auto-load result for decryption when KEY[2] is pressed
+        des_data <= des_result;
     end else if (key2_pressed) begin
         if (!SW[17]) begin
             // Load plaintext presets (SW[17] = 0)
@@ -159,18 +162,15 @@ always @(posedge clk or negedge rst_n) begin
         des_encipher_en <= 1'b0;
         des_decipher_en <= 1'b0;
     end else begin
-        if (key0_pressed && des_ready) begin
+        if (key0_pressed && des_ready)
             des_encipher_en <= 1'b1;
-        end else begin
+        else
             des_encipher_en <= 1'b0;
-        end
             
-        if (key1_pressed && des_ready) begin
+        if (key1_pressed && des_ready)
             des_decipher_en <= 1'b1;
-            des_data <= des_result;  // Auto-load result for decrypt
-        end else begin
+        else
             des_decipher_en <= 1'b0;
-        end
     end
 end
 
