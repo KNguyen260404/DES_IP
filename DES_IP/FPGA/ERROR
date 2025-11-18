@@ -1,1 +1,42 @@
 ERROR
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+	Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+	Info: Processing started: Tue Nov 18 10:17:35 2025
+	Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+	Info: Processing started: Tue Nov 18 10:17:35 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off des_de2_top -c des_de2_top
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Error (10170): Verilog HDL syntax error at des_de2_top.v(84) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(85) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(86) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(87) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(92) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(93) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(94) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(95) near text ",";  expecting ";"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(156) near text ")";  expecting ":", or ","
+Error (10170): Verilog HDL syntax error at des_de2_top.v(179) near text ";";  expecting ":", or ","
+Error (10170): Verilog HDL syntax error at des_de2_top.v(180) near text ";";  expecting ":", or ","
+Error (10170): Verilog HDL syntax error at des_de2_top.v(213) near text "}";  expecting ":", or ","
+Error (10170): Verilog HDL syntax error at des_de2_top.v(219) near text ";";  expecting ":", or ","
+Error (10170): Verilog HDL syntax error at des_de2_top.v(221) near text "assign";  expecting "endcase"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(223) near text "assign";  expecting "endcase"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(230) near text "}";  expecting ":", or ","
+Error (10170): Verilog HDL syntax error at des_de2_top.v(244) near text "}";  expecting ":", or ","
+Error (10170): Verilog HDL syntax error at des_de2_top.v(328) near text "always";  expecting "end"
+Error (10170): Verilog HDL syntax error at des_de2_top.v(413) near text "always";  expecting "end"
+Info (12021): Found 0 design units, including 0 entities, in source file des_de2_top.v
+Info (12021): Found 1 design units, including 1 entities, in source file tb_des_de2_top.v
+	Info (12023): Found entity 1: tb_des_de2_top
+	Info (12023): Found entity 1: tb_des_de2_top
+Error: Quartus II 64-Bit Analysis & Synthesis was unsuccessful. 19 errors, 1 warning
+	Error: Peak virtual memory: 4583 megabytes
+	Error: Processing ended: Tue Nov 18 10:17:35 2025
+	Error: Elapsed time: 00:00:00
+	Error: Total CPU time (on all processors): 00:00:01
+	Error: Peak virtual memory: 4583 megabytes
+	Error: Processing ended: Tue Nov 18 10:17:35 2025
+	Error: Elapsed time: 00:00:00
+	Error: Total CPU time (on all processors): 00:00:01
+Error (293001): Quartus II Full Compilation was unsuccessful. 21 errors, 1 warning
