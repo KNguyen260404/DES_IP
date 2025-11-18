@@ -1,42 +1,50 @@
-ERROR
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
 	Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-	Info: Processing started: Tue Nov 18 10:17:35 2025
+	Info: Processing started: Tue Nov 18 10:46:43 2025
 	Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-	Info: Processing started: Tue Nov 18 10:17:35 2025
+	Info: Processing started: Tue Nov 18 10:46:43 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off des_de2_top -c des_de2_top
 Warning (20028): Parallel compilation is not licensed and has been disabled
-Error (10170): Verilog HDL syntax error at des_de2_top.v(84) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(85) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(86) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(87) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(92) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(93) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(94) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(95) near text ",";  expecting ";"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(156) near text ")";  expecting ":", or ","
-Error (10170): Verilog HDL syntax error at des_de2_top.v(179) near text ";";  expecting ":", or ","
-Error (10170): Verilog HDL syntax error at des_de2_top.v(180) near text ";";  expecting ":", or ","
-Error (10170): Verilog HDL syntax error at des_de2_top.v(213) near text "}";  expecting ":", or ","
-Error (10170): Verilog HDL syntax error at des_de2_top.v(219) near text ";";  expecting ":", or ","
-Error (10170): Verilog HDL syntax error at des_de2_top.v(221) near text "assign";  expecting "endcase"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(223) near text "assign";  expecting "endcase"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(230) near text "}";  expecting ":", or ","
-Error (10170): Verilog HDL syntax error at des_de2_top.v(244) near text "}";  expecting ":", or ","
-Error (10170): Verilog HDL syntax error at des_de2_top.v(328) near text "always";  expecting "end"
-Error (10170): Verilog HDL syntax error at des_de2_top.v(413) near text "always";  expecting "end"
-Info (12021): Found 0 design units, including 0 entities, in source file des_de2_top.v
+Info (12021): Found 3 design units, including 3 entities, in source file des_de2_top.v
+	Info (12023): Found entity 1: des_de2_top
+	Info (12023): Found entity 2: des_core
+	Info (12023): Found entity 3: hex_to_7seg
+	Info (12023): Found entity 1: des_de2_top
+	Info (12023): Found entity 2: des_core
+	Info (12023): Found entity 3: hex_to_7seg
 Info (12021): Found 1 design units, including 1 entities, in source file tb_des_de2_top.v
 	Info (12023): Found entity 1: tb_des_de2_top
 	Info (12023): Found entity 1: tb_des_de2_top
-Error: Quartus II 64-Bit Analysis & Synthesis was unsuccessful. 19 errors, 1 warning
-	Error: Peak virtual memory: 4583 megabytes
-	Error: Processing ended: Tue Nov 18 10:17:35 2025
-	Error: Elapsed time: 00:00:00
+Info (12127): Elaborating entity "des_de2_top" for the top level hierarchy
+Warning (10230): Verilog HDL assignment warning at des_de2_top.v(192): truncated value with size 32 to match size of target (28)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[63]" at des_de2_top.v(162)
+Error (10029): Constant driver at des_de2_top.v(99)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[62]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[61]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[60]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[59]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[58]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[57]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[56]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[55]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[54]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[53]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[52]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[51]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[50]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[49]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[48]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[47]" at des_de2_top.v(162)
+Error (10028): Can't resolve multiple constant drivers for net "des_data[46]" at des_de2_top.v(162)
+Error (12153): Can't elaborate top-level user hierarchy
+Error: Quartus II 64-Bit Analysis & Synthesis was unsuccessful. 20 errors, 2 warnings
+	Error: Peak virtual memory: 4587 megabytes
+	Error: Processing ended: Tue Nov 18 10:46:44 2025
+	Error: Elapsed time: 00:00:01
 	Error: Total CPU time (on all processors): 00:00:01
-	Error: Peak virtual memory: 4583 megabytes
-	Error: Processing ended: Tue Nov 18 10:17:35 2025
-	Error: Elapsed time: 00:00:00
+	Error: Peak virtual memory: 4587 megabytes
+	Error: Processing ended: Tue Nov 18 10:46:44 2025
+	Error: Elapsed time: 00:00:01
 	Error: Total CPU time (on all processors): 00:00:01
-Error (293001): Quartus II Full Compilation was unsuccessful. 21 errors, 1 warning
+Error (293001): Quartus II Full Compilation was unsuccessful. 22 errors, 2 warnings
