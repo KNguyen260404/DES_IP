@@ -184,8 +184,8 @@ always @(posedge clk or negedge rst_n) begin
     end
 end
 
-// Select which 32 bits to display
-assign display_data = display_select ? des_result[31:0] : des_result[63:32];
+// Select which 32 bits to display (show 0 during reset)
+assign display_data = (!rst_n) ? 32'h0 : (display_select ? des_result[31:0] : des_result[63:32]);
 
 // Instantiate DES core
 des_core des_inst (
