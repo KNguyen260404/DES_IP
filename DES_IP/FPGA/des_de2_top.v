@@ -159,15 +159,18 @@ always @(posedge clk or negedge rst_n) begin
         des_encipher_en <= 1'b0;
         des_decipher_en <= 1'b0;
     end else begin
-        if (key0_pressed && des_ready)
+        if (key0_pressed && des_ready) begin
             des_encipher_en <= 1'b1;
-        else
+        end else begin
             des_encipher_en <= 1'b0;
+        end
             
-        if (key1_pressed && des_ready)
+        if (key1_pressed && des_ready) begin
             des_decipher_en <= 1'b1;
-        else
+            des_data <= des_result;  // Auto-load result for decrypt
+        end else begin
             des_decipher_en <= 1'b0;
+        end
     end
 end
 
