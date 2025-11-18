@@ -33,7 +33,6 @@ wire            clk;
 wire            rst_n;
 reg             key0_pressed, key1_pressed, key2_pressed, key3_pressed;
 reg     [1:0]   key0_sync, key1_sync, key2_sync, key3_sync;
-reg             reset_trigger;  // Edge-triggered reset
 
 // Timer for display toggle (3 seconds)
 reg     [27:0]  display_counter;   // Counter for 3 seconds @ 50MHz
@@ -41,7 +40,7 @@ reg             display_select;    // 0=show high 32 bits, 1=show low 32 bits
 wire    [31:0]  display_data;      // Data to display on 7-segment
 
 // Button definitions (active low):
-// KEY[0] - Reset (active low)
+// KEY[0] - Hardware Reset (hold to reset board)
 // KEY[1] - Start Encryption
 // KEY[2] - Start Decryption  
 // KEY[3] - Load Data/Key from switches
@@ -79,12 +78,10 @@ end
 // Detect button press (falling edge)
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        reset_trigger <= 1'b0;
         key0_pressed <= 1'b0;
         key1_pressed <= 1'b0;
         key2_pressed <= 1'b0;
     end else begin
-        reset_trigger <= key0_sync[1] & ~key0_sync[0];  // KEY[0] reset
         key0_pressed <= key1_sync[1] & ~key1_sync[0];   // KEY[1] encrypt
         key1_pressed <= key2_sync[1] & ~key2_sync[0];   // KEY[2] decrypt
         key2_pressed <= key3_sync[1] & ~key3_sync[0];   // KEY[3] load
@@ -96,10 +93,6 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         des_data <= 64'h0123456789ABCDEF;  // Default: Standard DES test vector
         des_key  <= 64'h133457799BBCDFF1;  // Default: Standard DES key
-    end else if (reset_trigger) begin
-        // Reset to zero when KEY[0] is pressed
-        des_data <= 64'h0;
-        des_key  <= 64'h0;
     end else if (key1_pressed && des_ready) begin
         // Auto-load result for decryption when KEY[2] is pressed
         des_data <= des_result;
@@ -107,14 +100,14 @@ always @(posedge clk or negedge rst_n) begin
         if (!SW[17]) begin
             // Load plaintext presets (SW[17] = 0)
             if (SW[0]) begin
-                // SW[0]: Standard DES test vector
+                // SW[0]: Test Case 1 - Standard DES test vector
                 des_data <= 64'h0123456789ABCDEF;
             end else if (SW[1]) begin
-                // SW[1]: All zeros
-                des_data <= 64'h0000000000000000;
+                // SW[1]: Test Case 2
+                des_data <= 64'h596F7572206C6970;
             end else if (SW[2]) begin
-                // SW[2]: All ones
-                des_data <= 64'hFFFFFFFFFFFFFFFF;
+                // SW[2]: Test Case 3
+                des_data <= 64'h675F73796E632069;
             end else if (SW[3]) begin
                 // SW[3]: Pattern 1
                 des_data <= 64'hDEADBEEFCAFEBABE;
@@ -134,23 +127,23 @@ always @(posedge clk or negedge rst_n) begin
         end else begin
             // Load key presets (SW[17] = 1)
             if (SW[0]) begin
-                // SW[17]=1, SW[0]: Standard DES key
+                // SW[17]=1, SW[0]: Test Case 1 - Standard DES key
                 des_key <= 64'h133457799BBCDFF1;
             end else if (SW[1]) begin
-                // SW[17]=1, SW[1]: All zeros key
-                des_key <= 64'h0000000000000000;
+                // SW[17]=1, SW[1]: Test Case 2 key
+                des_key <= 64'h0E329232EA6D0D73;
             end else if (SW[2]) begin
-                // SW[17]=1, SW[2]: All ones key
-                des_key <= 64'hFFFFFFFFFFFFFFFF;
+                // SW[17]=1, SW[2]: Test Case 3 key
+                des_key <= 64'h0123456789ABCDEF;
             end else if (SW[3]) begin
                 // SW[17]=1, SW[3]: Custom key 1
-                des_key <= 64'h0123456789ABCDEF;
+                des_key <= 64'h1F1F1F1F0E0E0E0E;
             end else if (SW[4]) begin
                 // SW[17]=1, SW[4]: Custom key 2
                 des_key <= 64'hFEDCBA9876543210;
             end else if (SW[5]) begin
-                // SW[17]=1, SW[5]: Weak key
-                des_key <= 64'h0101010101010101;
+                // SW[17]=1, SW[5]: Custom key 3
+                des_key <= 64'hA0B1C2D3E4F56789;
             end
         end
     end
@@ -182,10 +175,7 @@ always @(posedge clk or negedge rst_n) begin
         display_counter <= 28'd0;
         display_select <= 1'b0;  // Start with high 32 bits
     end else begin
-        if (reset_trigger) begin  // Reset display when KEY[0] pressed
-            display_counter <= 28'd0;
-            display_select <= 1'b0;
-        end else if (display_counter >= DISPLAY_TOGGLE_CYCLES - 1) begin
+        if (display_counter >= DISPLAY_TOGGLE_CYCLES - 1) begin
             display_counter <= 28'd0;
             display_select <= ~display_select;  // Toggle display
         end else begin
