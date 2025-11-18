@@ -77,23 +77,24 @@ always @(posedge clk or negedge rst_n) begin
         des_data <= 64'h0123456789ABCDEF;  // Default test data
         des_key  <= 64'h133457799BBCDFF1;  // Default test key
     end else if (key2_pressed) begin
-        case (SW[17:16])
-            2'b00: des_data[15:0]  <= SW[15:0];   // Load data low 16 bits
-            2'b01: des_data[31:16] <= SW[15:0];   // Load data bits 31:16
-            2'b10: des_data[47:32] <= SW[15:0];   // Load data bits 47:32
-            2'b11: des_data[63:48] <= SW[15:0];   // Load data high 16 bits
-        endcase
-    end
-end
-
-always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-        des_key <= 64'h133457799BBCDFF1;  // Default test key
-    end else if (key2_pressed && SW[17]) begin
-        case (SW[16])
-            1'b0: des_key[31:0]  <= {des_key[31:16], SW[15:0]};   // Load key low
-            1'b1: des_key[63:32] <= {des_key[63:48], SW[15:0]};   // Load key high
-        endcase
+        // Load data or key based on SW[17]
+        if (!SW[17]) begin
+            // Load data (SW[17] = 0)
+            case (SW[16:15])
+                2'b00: des_data[15:0]  <= SW[14:0], 1'b0;   // Load data bits [15:0]
+                2'b01: des_data[31:16] <= SW[14:0], 1'b0;   // Load data bits [31:16]
+                2'b10: des_data[47:32] <= SW[14:0], 1'b0;   // Load data bits [47:32]
+                2'b11: des_data[63:48] <= SW[14:0], 1'b0;   // Load data bits [63:48]
+            endcase
+        end else begin
+            // Load key (SW[17] = 1)
+            case (SW[16:15])
+                2'b00: des_key[15:0]  <= SW[14:0], 1'b0;    // Load key bits [15:0]
+                2'b01: des_key[31:16] <= SW[14:0], 1'b0;    // Load key bits [31:16]
+                2'b10: des_key[47:32] <= SW[14:0], 1'b0;    // Load key bits [47:32]
+                2'b11: des_key[63:48] <= SW[14:0], 1'b0;    // Load key bits [63:48]
+            endcase
+        end
     end
 end
 
