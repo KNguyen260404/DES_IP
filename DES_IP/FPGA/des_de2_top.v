@@ -31,8 +31,14 @@ wire            des_ready;
 
 wire            clk;
 wire            rst_n;
-reg             key0_pressed, key1_pressed, key2_pressed;
-reg     [1:0]   key0_sync, key1_sync, key2_sync;
+reg             key0_pressed, key1_pressed, key2_pressed, key3_pressed;
+reg     [1:0]   key0_sync, key1_sync, key2_sync, key3_sync;
+reg             reset_trigger;  // Edge-triggered reset
+
+// Timer for display toggle (3 seconds)
+reg     [27:0]  display_counter;   // Counter for 3 seconds @ 50MHz
+reg             display_select;    // 0=show high 32 bits, 1=show low 32 bits
+wire    [31:0]  display_data;      // Data to display on 7-segment
 
 // Button definitions (active low):
 // KEY[0] - Reset (active low)
@@ -61,23 +67,27 @@ always @(posedge clk or negedge rst_n) begin
         key0_sync <= 2'b11;
         key1_sync <= 2'b11;
         key2_sync <= 2'b11;
+        key3_sync <= 2'b11;
     end else begin
-        key0_sync <= {key0_sync[0], KEY[1]};
-        key1_sync <= {key1_sync[0], KEY[2]};
-        key2_sync <= {key2_sync[0], KEY[3]};
+        key0_sync <= {key0_sync[0], KEY[0]};  // KEY[0] for reset trigger
+        key1_sync <= {key1_sync[0], KEY[1]};  // KEY[1] for encrypt
+        key2_sync <= {key2_sync[0], KEY[2]};  // KEY[2] for decrypt
+        key3_sync <= {key3_sync[0], KEY[3]};  // KEY[3] for load
     end
 end
 
 // Detect button press (falling edge)
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
+        reset_trigger <= 1'b0;
         key0_pressed <= 1'b0;
         key1_pressed <= 1'b0;
         key2_pressed <= 1'b0;
     end else begin
-        key0_pressed <= key0_sync[1] & ~key0_sync[0];
-        key1_pressed <= key1_sync[1] & ~key1_sync[0];
-        key2_pressed <= key2_sync[1] & ~key2_sync[0];
+        reset_trigger <= key0_sync[1] & ~key0_sync[0];  // KEY[0] reset
+        key0_pressed <= key1_sync[1] & ~key1_sync[0];   // KEY[1] encrypt
+        key1_pressed <= key2_sync[1] & ~key2_sync[0];   // KEY[2] decrypt
+        key2_pressed <= key3_sync[1] & ~key3_sync[0];   // KEY[3] load
     end
 end
 
@@ -86,6 +96,10 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         des_data <= 64'h0123456789ABCDEF;  // Default: Standard DES test vector
         des_key  <= 64'h133457799BBCDFF1;  // Default: Standard DES key
+    end else if (reset_trigger) begin
+        // Reset to zero when KEY[0] is pressed
+        des_data <= 64'h0;
+        des_key  <= 64'h0;
     end else if (key2_pressed) begin
         if (!SW[17]) begin
             // Load plaintext presets (SW[17] = 0)
@@ -157,6 +171,29 @@ always @(posedge clk or negedge rst_n) begin
     end
 end
 
+// Timer for 3-second display toggle (50MHz clock -> 150,000,000 cycles = 3 seconds)
+parameter DISPLAY_TOGGLE_CYCLES = 28'd150_000_000;
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        display_counter <= 28'd0;
+        display_select <= 1'b0;  // Start with high 32 bits
+    end else begin
+        if (reset_trigger) begin  // Reset display when KEY[0] pressed
+            display_counter <= 28'd0;
+            display_select <= 1'b0;
+        end else if (display_counter >= DISPLAY_TOGGLE_CYCLES - 1) begin
+            display_counter <= 28'd0;
+            display_select <= ~display_select;  // Toggle display
+        end else begin
+            display_counter <= display_counter + 1;
+        end
+    end
+end
+
+// Select which 32 bits to display
+assign display_data = display_select ? des_result[31:0] : des_result[63:32];
+
 // Instantiate DES core
 des_core des_inst (
     .clk                (clk),
@@ -174,17 +211,18 @@ assign LEDR[17:0] = SW[17:0];  // Show switch states
 assign LEDG[8] = des_ready;     // Green LED shows ready status
 assign LEDG[7] = des_encipher_en;
 assign LEDG[6] = des_decipher_en;
-assign LEDG[5:0] = 6'b0;
+assign LEDG[5] = display_select; // Show which 32 bits: 0=high, 1=low
+assign LEDG[4:0] = 5'b0;
 
-// 7-segment display - show result
-hex_to_7seg hex0_inst (.hex(des_result[3:0]),   .seg(HEX0));
-hex_to_7seg hex1_inst (.hex(des_result[7:4]),   .seg(HEX1));
-hex_to_7seg hex2_inst (.hex(des_result[11:8]),  .seg(HEX2));
-hex_to_7seg hex3_inst (.hex(des_result[15:12]), .seg(HEX3));
-hex_to_7seg hex4_inst (.hex(des_result[19:16]), .seg(HEX4));
-hex_to_7seg hex5_inst (.hex(des_result[23:20]), .seg(HEX5));
-hex_to_7seg hex6_inst (.hex(des_result[27:24]), .seg(HEX6));
-hex_to_7seg hex7_inst (.hex(des_result[31:28]), .seg(HEX7));
+// 7-segment display - show result (toggles between high and low 32 bits every 3 seconds)
+hex_to_7seg hex0_inst (.hex(display_data[3:0]),   .seg(HEX0));
+hex_to_7seg hex1_inst (.hex(display_data[7:4]),   .seg(HEX1));
+hex_to_7seg hex2_inst (.hex(display_data[11:8]),  .seg(HEX2));
+hex_to_7seg hex3_inst (.hex(display_data[15:12]), .seg(HEX3));
+hex_to_7seg hex4_inst (.hex(display_data[19:16]), .seg(HEX4));
+hex_to_7seg hex5_inst (.hex(display_data[23:20]), .seg(HEX5));
+hex_to_7seg hex6_inst (.hex(display_data[27:24]), .seg(HEX6));
+hex_to_7seg hex7_inst (.hex(display_data[31:28]), .seg(HEX7));
 
 endmodule
 
