@@ -1,0 +1,61 @@
+{
+   "creator": "Yosys 0.46 (git sha1 e97731b9dda91fa5fa53ed87df7c34163ba59a41, clang++ 17.0.6 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/nguyen2604/my_designs/des_core/runs/RUN_2025-12-17_00-49-32/tmp/3a7e168837f24033a105382f55f64964.lib ",
+   "modules": {
+      "\\des_core": {
+         "num_wires":         1081,
+         "num_wire_bits":     1446,
+         "num_pub_wires":     17,
+         "num_pub_wire_bits": 322,
+         "num_ports":         8,
+         "num_port_bits":     197,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1282,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 177,
+            "$_AND_": 17,
+            "$_DFFE_PN0P_": 7,
+            "$_DFFE_PP_": 120,
+            "$_DFF_PN0_": 2,
+            "$_MUX_": 635,
+            "$_NAND_": 12,
+            "$_NOR_": 7,
+            "$_NOT_": 100,
+            "$_ORNOT_": 17,
+            "$_OR_": 58,
+            "$_XNOR_": 70,
+            "$_XOR_": 60
+         }
+      }
+   },
+      "design": {
+         "num_wires":         1081,
+         "num_wire_bits":     1446,
+         "num_pub_wires":     17,
+         "num_pub_wire_bits": 322,
+         "num_ports":         8,
+         "num_port_bits":     197,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1282,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 177,
+            "$_AND_": 17,
+            "$_DFFE_PN0P_": 7,
+            "$_DFFE_PP_": 120,
+            "$_DFF_PN0_": 2,
+            "$_MUX_": 635,
+            "$_NAND_": 12,
+            "$_NOR_": 7,
+            "$_NOT_": 100,
+            "$_ORNOT_": 17,
+            "$_OR_": 58,
+            "$_XNOR_": 70,
+            "$_XOR_": 60
+         }
+      }
+}
+
