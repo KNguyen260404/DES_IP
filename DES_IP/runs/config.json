@@ -1,0 +1,13 @@
+{
+	"DESIGN_NAME": "des_core",
+	"VERILOG_FILES": ["dir::des_core.v"],
+	"CLOCK_PERIOD": 10,
+	"CLOCK_PORT": "clk",
+	"PNR_SDC_FILE": "dir::des_core.sdc",
+	"SIGNOFF_SDC_FILE": "dir::des_core.sdc",
+	"CHECK_LONG_WIRES_THRESHOLD": 500,
+	"GRT_ALLOW_CONGESTION": true,
+	"GRT_OVERFLOW_ITERS": 50,
+	"QUIT_ON_LINTER_WARNINGS": false,
+	"QUIT_ON_LINTER_ERRORS": true
+}
