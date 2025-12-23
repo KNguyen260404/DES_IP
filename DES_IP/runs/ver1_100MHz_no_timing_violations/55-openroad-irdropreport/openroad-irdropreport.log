@@ -1,0 +1,30 @@
+Reading OpenROAD database at '/home/nguyen2604/my_designs/des_core/runs/RUN_2025-12-17_00-49-32/52-odb-cellfrequencytables/des_core.odb'…
+Reading library file at '/home/nguyen2604/.ciel/ciel/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib'…
+Reading design constraints file at '/home/nguyen2604/my_designs/des_core/des_core.sdc'…
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
+[INFO] Setting RC values…
+[INFO] Using voltage extracted from lib (1.8000000000V) for power nets and 0V for ground nets…
+%OL_CREATE_REPORT irdrop.rpt
+[INFO PSM-0040] All shapes on net VPWR are connected.
+########## IR report #################
+Net              : VPWR
+Corner           : nom_tt_025C_1v80
+Supply voltage   : 1.80e+00 V
+Worstcase voltage: 1.79e+00 V
+Average voltage  : 1.80e+00 V
+Average IR drop  : 2.12e-03 V
+Worstcase IR drop: 6.07e-03 V
+Percentage drop  : 0.34 %
+######################################
+[INFO PSM-0040] All shapes on net VGND are connected.
+########## IR report #################
+Net              : VGND
+Corner           : nom_tt_025C_1v80
+Supply voltage   : 0.00e+00 V
+Worstcase voltage: 4.74e-03 V
+Average voltage  : 2.04e-03 V
+Average IR drop  : 2.04e-03 V
+Worstcase IR drop: 4.74e-03 V
+Percentage drop  : 0.26 %
+######################################
+%OL_END_REPORT
